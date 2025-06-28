@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Slider Technologie</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #e0f2f1;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #00695c;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    #container {
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .slider {
+      width: 80%;
+      max-width: 1000px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    #image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .nav-button {
+      width: 50px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 30px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .nav-button:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .prev-button {
+      left: 0;
+    }
+
+    .next-button {
+      right: 0;
+    }
+
+    .index {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      background: rgba(0,0,0,0.4);
+      color: white;
+      font-size: 16px;
+      z-index: 2;
+    }
+
+    #downloadImage {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #00796b;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      z-index: 2;
+    }
+
+    #downloadImage:hover {
+      background-color: #004d40;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <h1>Galerie Technologie</h1>
+    <p>Découvrez des images fascinantes sur la technologie et l'innovation.</p>
+  </header>
+
+  <div id="container">
+    <div class="slider">
+      <img id="image" src="" alt="Image Technologie" />
+      <button class="nav-button prev-button"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="nav-button next-button"><i class="fa-solid fa-chevron-right"></i></button>
+      <a href="#" id="downloadImage" download>Télécharger</a>
+      <div class="index"></div>
+    </div>
+  </div>
+
+<script>
+const imageElement = document.querySelector("#image");
+const indexDisplay = document.querySelector(".index");
+const downloadLink = document.querySelector("#downloadImage");
+const prevButton = document.querySelector(".prev-button");
+const nextButton = document.querySelector(".next-button");
+
+const images = [
+  "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", 
+  "https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1605379399642-870262d3d051?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+   "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+];
+
+
+let currentIndex = 0;
+
+function showImage(index) {
+  imageElement.src = images[index];
+  indexDisplay.textContent = `${index + 1} / ${images.length}`;
+  downloadLink.href = images[index];
+  downloadLink.setAttribute("download", `technologie${index + 1}.jpg`);
+}
+
+window.addEventListener("load", () => {
+  showImage(currentIndex);
+});
+
+prevButton.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  showImage(currentIndex);
+});
+
+nextButton.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % images.length;
+  showImage(currentIndex);
+});
+</script>
+
+
+</body>
+</html>
